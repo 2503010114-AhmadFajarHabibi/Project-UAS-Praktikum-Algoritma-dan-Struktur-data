@@ -56,15 +56,6 @@ Aplikasi berbasis C++ yang membantu penyelenggara konser mengelola jadwal konser
 - Bahasa: **C++**
 - Compiler: g++ / MinGW / Visual Studio (sesuaikan dengan yang dipakai tim)
 
-## 🚀 Cara Menjalankan
-
-```bash
-git clone <link-repository-ini>
-cd <nama-folder-project>
-g++ main.cpp -o tiket_konser
-./tiket_konser
-```
-
 ## 🌿 Alur Kerja GitHub (Wajib Diikuti)
 
 1. **Jangan push langsung ke branch `main`.**
