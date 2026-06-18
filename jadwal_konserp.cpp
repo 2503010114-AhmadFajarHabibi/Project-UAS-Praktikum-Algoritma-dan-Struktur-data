@@ -1,102 +1,97 @@
-#include <iostream>
-#include <string>
+void tambahKonser() {
+    if (jumlahKonser >= MAX_KONSER) {
+        cout << "[ERROR] Kapasitas maksimum daftar konser telah tercapai!\n";
+        return;
+    }
 
-using namespace std;
+    Konser k;
+    cout << "\n=== Tambah Jadwal Konser Baru ===\n";
+    cout << "Masukkan ID Konser (Angka)  : ";
+    cin >> k.id;
 
-struct Konser {
-    string id;
-    string nama;
-    string tanggal;
-    string lokasi;
-    double hargaTiket;
-};
+    // Validasi apakah ID sudah digunakan
+    for (int i = 0; i < jumlahKonser; i++) {
+        if (daftarKonser[i].id == k.id) {
+            cout << "[ERROR] Gagal! ID Konser " << k.id << " sudah terdaftar.\n";
+            return;
+        }
+    }
 
-class ManajemenKonser {
-private:
-    Konser daftarKonser[100];
-    int jumlahKonser = 0;
+    cout << "Masukkan Nama Konser        : ";
+    cin.ignore();
+    getline(cin, k.nama);
+    cout << "Masukkan Tanggal Konser     : ";
+    getline(cin, k.tanggal);
+    cout << "Masukkan Venue/Lokasi       : ";
+    getline(cin, k.venue);
+    cout << "Kapasitas Tiket VIP         : ";
+    cin >> k.kapasitasVIP;
+    cout << "Harga Tiket VIP             : ";
+    cin >> k.hargaVIP;
+    cout << "Kapasitas Tiket Reguler     : ";
+    cin >> k.kapasitasReguler;
+    cout << "Harga Tiket Reguler         : ";
+    cin >> k.hargaReguler;
 
-    int cariIndeksBerdasarkanId(const string& id) {
-        for (int i = 0; i < jumlahKonser; ++i) {
-            if (daftarKonser[i].id == id) {
-                return i;
+    // Set awal kursi terisi menjadi 0
+    k.kursiTerisiVIP = 0;
+    k.kursiTerisiReguler = 0;
+
+    // Masukkan ke array global
+    daftarKonser[jumlahKonser] = k;
+    jumlahKonser++;
+
+    cout << "[SUCCESS] Jadwal konser \"" << k.nama << "\" berhasil ditambahkan!\n";
+}
+
+void lihatDaftarKonser() {
+    if (jumlahKonser == 0) {
+        cout << "\n[INFO] Belum ada jadwal konser yang tersedia.\n";
+        return;
+    }
+
+    cout << "\n=================================================================================\n";
+    cout << "                               DAFTAR JADWAL KONSER                              \n";
+    cout << "=================================================================================\n";
+    for (int i = 0; i < jumlahKonser; i++) {
+        cout << "ID Konser    : " << daftarKonser[i].id << "\n";
+        cout << "Nama Konser  : " << daftarKonser[i].nama << "\n";
+        cout << "Tanggal      : " << daftarKonser[i].tanggal << "\n";
+        cout << "Venue        : " << daftarKonser[i].venue << "\n";
+        cout << "Tiket VIP    : Rp " << daftarKonser[i].hargaVIP << " (Tersedia: " << (daftarKonser[i].kapasitasVIP - daftarKonser[i].kursiTerisiVIP) << ")\n";
+        cout << "Tiket Reguler: Rp " << daftarKonser[i].hargaReguler << " (Tersedia: " << (daftarKonser[i].kapasitasReguler - daftarKonser[i].kursiTerisiReguler) << ")\n";
+        cout << "---------------------------------------------------------------------------------\n";
+    }
+}
+
+void cariKonser() {
+    if (jumlahKonser == 0) {
+        cout << "\n[INFO] Belum ada jadwal konser untuk dicari.\n";
+        return;
+    }
+
+    string keyword;
+    cout << "\n=== Pencarian Konser (Linear Search) ===\n";
+    cout << "Masukkan nama konser yang dicari: ";
+    cin.ignore();
+    getline(cin, keyword);
+
+    bool ditemukan = false;
+    for (int i = 0; i < jumlahKonser; i++) {
+        // Melakukan pencarian substring sederhana (case-sensitive)
+        if (daftarKonser[i].nama.find(keyword) != string::npos) {
+            if (!ditemukan) {
+                cout << "\n--- Hasil Pencarian ---\n";
             }
-        }
-        return -1;
-    }
-
-public:
-    void tambahKonser(const Konser& k) {
-        if (jumlahKonser >= 100) {
-            cout << "[ERROR] Kapasitas penuh!\n";
-            return;
-        }
-        if (cariIndeksBerdasarkanId(k.id) != -1) {
-            cout << "[ERROR] ID " << k.id << " sudah ada!\n";
-            return;
-        }
-        daftarKonser[jumlahKonser] = k;
-        jumlahKonser++;
-        cout << "[SUCCESS] Berhasil ditambahkan.\n";
-    }
-
-    void tampilkanSemuaKonser() const {
-        if (jumlahKonser == 0) {
-            cout << "TIDAK ADA JADWAL KONSER TERSEDIA\n";
-            return;
-        }
-        
-        for (int i = 0; i < jumlahKonser; ++i) {
             cout << "ID: " << daftarKonser[i].id 
                  << " | Nama: " << daftarKonser[i].nama 
                  << " | Tgl: " << daftarKonser[i].tanggal 
-                 << " | Lokasi: " << daftarKonser[i].lokasi 
-                 << " | Harga: Rp " << daftarKonser[i].hargaTiket << "\n";
+                 << " | Venue: " << daftarKonser[i].venue << "\n";
+            ditemukan = true;
         }
     }
 
-    void ubahKonser(const string& id) {
-        int indeks = cariIndeksBerdasarkanId(id);
-        if (indeks == -1) {
-            cout << "[ERROR] Tidak ditemukan!\n";
-            return;
-        }
-
-        cout << "Nama Baru   : "; cin.ignore(); getline(cin, daftarKonser[indeks].nama);
-        cout << "Tanggal Baru: "; getline(cin, daftarKonser[indeks].tanggal);
-        cout << "Lokasi Baru : "; getline(cin, daftarKonser[indeks].lokasi);
-        cout << "Harga Baru  : "; cin >> daftarKonser[indeks].hargaTiket;
-
-        cout << "[SUCCESS] Berhasil diperbarui.\n";
+    if (!ditemukan) {
+        cout << "[INFO] Konser dengan nama \"" << keyword << "\" tidak ditemukan.\n";
     }
-
-    void hapusKonser(const string& id) {
-        int indeks = cariIndeksBerdasarkanId(id);
-        if (indeks == -1) {
-            cout << "[ERROR] Tidak ditemukan!\n";
-            return;
-        }
-
-        for (int i = indeks; i < jumlahKonser - 1; ++i) {
-            daftarKonser[i] = daftarKonser[i + 1];
-        }
-        jumlahKonser--;
-        cout << "[SUCCESS] Berhasil dihapus.\n";
-    }
-
-    void cariKonserBerdasarkanNama(const string& keyword) const {
-        bool ditemukan = false;
-        for (int i = 0; i < jumlahKonser; ++i) {
-            if (daftarKonser[i].nama == keyword) {
-                cout << "ID: " << daftarKonser[i].id 
-                     << " | Nama: " << daftarKonser[i].nama 
-                     << " | Tgl: " << daftarKonser[i].tanggal 
-                     << " | Harga: Rp " << daftarKonser[i].hargaTiket << "\n";
-                ditemukan = true;
-            }
-        }
-        if (!ditemukan) {
-            cout << "Tidak ditemukan.\n";
-        }
-    }
-};
+}
