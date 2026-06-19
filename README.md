@@ -16,6 +16,7 @@ Aplikasi berbasis C++ yang membantu penyelenggara konser mengelola jadwal konser
 | Faiz | `[isi NIM]` | Anggota |
 | Rian | `[isi NIM]` | Anggota |
 | Pipit | `[isi NIM]` | Anggota |
+| Raesha | `[isi NIM]` | Anggota |
 
 > Catatan: ganti `[isi NIM]` dengan NIM masing-masing sebelum dikumpulkan.
 
@@ -46,10 +47,11 @@ Aplikasi berbasis C++ yang membantu penyelenggara konser mengelola jadwal konser
 | Anggota | Tugas / Fitur yang Dikembangkan |
 |---|---|
 | **Habibi (Ketua)** | Koordinasi tim, integrasi seluruh modul ke program utama, mengelola repository GitHub, review & merge Pull Request |
-| **Rangga** | Manajemen jadwal konser (CRUD) & pencarian konser |
+| **Rangga** | Manajemen jadwal konser (CRUD) |
 | **Faiz** | Pemesanan tiket |
 | **Rian** | Antrean pembelian (Queue) & manajemen kapasitas kursi |
 | **Pipit** | Riwayat transaksi & pengurutan data (sorting) |
+| **Raesha** | Pencarian konser |
 
 ## 💻 Tech Stack
 
@@ -75,6 +77,7 @@ Aplikasi berbasis C++ yang membantu penyelenggara konser mengelola jadwal konser
 | Faiz | `fitur-pemesanan-tiket` |
 | Rian | `fitur-antrean-kursi` |
 | Pipit | `fitur-riwayat-sorting` |
+| Raesha | `fitur-pencarian-konser` |
 
 ## 📄 Lisensi
 
