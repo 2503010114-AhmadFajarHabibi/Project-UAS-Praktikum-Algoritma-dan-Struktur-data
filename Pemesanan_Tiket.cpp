@@ -1,60 +1,67 @@
-#include "TiketKonser.h"
+#include <iostream>
+#include <string>
 
-TiketKonser::TiketKonser() {
-    namaPemesan = "";
-    kategori = "";
-    jumlahTiket = 0;
-    hargaTiket = 0;
-    totalHarga = 0;
-}
+using namespace std;
 
-void TiketKonser::inputData() {
-    cout << "\n=== PEMESANAN TIKET KONSER ===\n";
+int main() {
+    string nama;
+    int pilihan, jumlah;
+    int harga = 0;
+    int total;
 
-    cout << "Nama Pemesan : ";
-    getline(cin, namaPemesan);
+    cout << "======================================" << endl;
+    cout << "      PEMESANAN TIKET KONSER" << endl;
+    cout << "======================================" << endl;
 
-    cout << "\nKategori Tiket\n";
-    cout << "1. VIP      (Rp1.000.000)\n";
-    cout << "2. Festival (Rp500.000)\n";
-    cout << "3. Reguler  (Rp250.000)\n";
+    cout << "Masukkan Nama Pemesan : ";
+    getline(cin, nama);
 
-    int pilihan;
-    cout << "Pilih kategori (1-3): ";
+    cout << "\nDaftar Kategori Tiket" << endl;
+    cout << "1. VIP      : Rp1.000.000" << endl;
+    cout << "2. Festival : Rp500.000" << endl;
+    cout << "3. Reguler  : Rp250.000" << endl;
+
+    cout << "\nPilih Kategori Tiket (1-3): ";
     cin >> pilihan;
 
     switch (pilihan) {
         case 1:
-            kategori = "VIP";
-            hargaTiket = 1000000;
+            harga = 1000000;
             break;
         case 2:
-            kategori = "Festival";
-            hargaTiket = 500000;
+            harga = 500000;
             break;
         case 3:
-            kategori = "Reguler";
-            hargaTiket = 250000;
+            harga = 250000;
             break;
         default:
-            kategori = "Reguler";
-            hargaTiket = 250000;
+            cout << "Pilihan tidak valid!" << endl;
+            return 0;
     }
 
     cout << "Jumlah Tiket : ";
-    cin >> jumlahTiket;
-}
+    cin >> jumlah;
 
-void TiketKonser::hitungTotal() {
-    totalHarga = hargaTiket * jumlahTiket;
-}
+    total = harga * jumlah;
 
-void TiketKonser::tampilData() {
-    cout << "\n===== STRUK PEMESANAN =====\n";
-    cout << "Nama Pemesan  : " << namaPemesan << endl;
-    cout << "Kategori      : " << kategori << endl;
-    cout << "Harga Tiket   : Rp" << hargaTiket << endl;
-    cout << "Jumlah Tiket  : " << jumlahTiket << endl;
-    cout << "Total Bayar   : Rp" << totalHarga << endl;
-    cout << "===========================\n";
+    cout << "\n======================================" << endl;
+    cout << "          STRUK PEMESANAN" << endl;
+    cout << "======================================" << endl;
+    cout << "Nama Pemesan : " << nama << endl;
+
+    cout << "Kategori     : ";
+    if (pilihan == 1)
+        cout << "VIP" << endl;
+    else if (pilihan == 2)
+        cout << "Festival" << endl;
+    else
+        cout << "Reguler" << endl;
+
+    cout << "Harga Tiket  : Rp" << harga << endl;
+    cout << "Jumlah Tiket : " << jumlah << endl;
+    cout << "Total Bayar  : Rp" << total << endl;
+    cout << "======================================" << endl;
+    cout << "Terima kasih telah memesan tiket konser!" << endl;
+
+    return 0;
 }
