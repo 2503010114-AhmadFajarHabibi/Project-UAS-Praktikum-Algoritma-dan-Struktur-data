@@ -1,26 +1,25 @@
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-int main() {
-    string nama;
-    int pilihan, jumlah;
-    int harga = 0;
-    int total;
-
+void tampilJudul() {
     cout << "======================================" << endl;
     cout << "      PEMESANAN TIKET KONSER" << endl;
     cout << "======================================" << endl;
+}
 
+// Input Nama
+void inputNama(string &nama) {
     cout << "Masukkan Nama Pemesan : ";
     getline(cin, nama);
+}
 
+// Menampilkan Menu
+void tampilMenu() {
     cout << "\nDaftar Kategori Tiket" << endl;
     cout << "1. VIP      : Rp1.000.000" << endl;
     cout << "2. Festival : Rp500.000" << endl;
     cout << "3. Reguler  : Rp250.000" << endl;
+}
 
+// Memilih Tiket
+void pilihTiket(int &pilihan, int &harga) {
     cout << "\nPilih Kategori Tiket (1-3): ";
     cin >> pilihan;
 
@@ -36,14 +35,23 @@ int main() {
             break;
         default:
             cout << "Pilihan tidak valid!" << endl;
-            return 0;
+            exit(0);
     }
+}
 
+// Input Jumlah Tiket
+void inputJumlah(int &jumlah) {
     cout << "Jumlah Tiket : ";
     cin >> jumlah;
+}
 
+// Menghitung Total
+void hitungTotal(int harga, int jumlah, int &total) {
     total = harga * jumlah;
+}
 
+// Cetak Struk
+void cetakStruk(string nama, int pilihan, int harga, int jumlah, int total) {
     cout << "\n======================================" << endl;
     cout << "          STRUK PEMESANAN" << endl;
     cout << "======================================" << endl;
@@ -62,6 +70,4 @@ int main() {
     cout << "Total Bayar  : Rp" << total << endl;
     cout << "======================================" << endl;
     cout << "Terima kasih telah memesan tiket konser!" << endl;
-
-    return 0;
 }
