@@ -1,3 +1,5 @@
+#include "Pemesanan.h"
+
 void lihatRiwayatTransaksi() {
     if (topRiwayat < 0) {
         cout << "\n=== RIWAYAT TRANSAKSI ===\n";
