@@ -58,12 +58,11 @@ bool popRiwayat(Transaksi &keluar) {
     return true;
 }
 
-void tambahKonser();                  // Tugas: Rangga
-void cariKonser();                    // Tugas: Rangga
-
-void lihatRiwayatTransaksi();         // Tugas: Pipit
-void urutkanDataKonser();             // Tugas: Pipit
-
+#include "jadwal_konserp.cpp"           // Tugas: Rangga  -> tambahKonser(), lihatDaftarKonser(), cariKonser()
+#include "Pemesanan_Tiket.cpp"          // Tugas: Faiz    -> pesanTiket()
+#include "antreankursi.cpp"             // Tugas: Rian    -> prosesAntreanPembelian(), cekKapasitasKursi()
+#include "PencarianKonser.cpp"          // Tugas: Raesha  -> cariKonserLanjutan()
+#include "riwayatTransaksi_sorting.cpp" // Tugas: Pipit   -> lihatRiwayatTransaksi(), urutkanDataKonser()
 void tampilkanMenuUtama();
 void inisialisasiDataDummy();
 
