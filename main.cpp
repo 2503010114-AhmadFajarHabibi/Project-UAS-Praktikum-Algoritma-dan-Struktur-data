@@ -346,10 +346,19 @@ void tampilkanMenuUtama() {
 int main() {
     inisialisasiDataDummy();
 
+int main() {
+    inisialisasiDataDummy();
+
     int pilihan;
     do {
         tampilkanMenuUtama();
-        cin >> pilihan;
+        if (!(cin >> pilihan)) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            pilihan = -1;
+            cout << "Input tidak valid! Masukkan angka menu yang benar.\n";
+            continue;
+        }
 
         switch (pilihan) {
             case 1: lihatDaftarKonser(); break;
