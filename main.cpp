@@ -2,6 +2,7 @@
 #include <string>
 #include "Pemesanan.h"
 #include "antriankursi.h"
+#include "pencariankonser.h"
 using namespace std;
 
 Konser daftarKonser[MAX_KONSER];
@@ -338,13 +339,11 @@ void tampilkanMenuUtama() {
     cout << "6. Cek Kapasitas Kursi\n";
     cout << "7. Lihat Riwayat Transaksi\n";
     cout << "8. Urutkan Data Konser\n";
+    cout << "9. Pencarian Lanjutan (Venue/Tanggal/Harga)\n";
     cout << "0. Keluar\n";
     cout << "==========================================\n";
     cout << "Pilih menu: ";
 }
-
-int main() {
-    inisialisasiDataDummy();
 
 int main() {
     inisialisasiDataDummy();
@@ -369,6 +368,7 @@ int main() {
             case 6: cekKapasitasKursi(); break;
             case 7: lihatRiwayatTransaksi(); break;
             case 8: urutkanDataKonser(); break;
+            case 9: cariKonserLanjutan(); break;
             case 0: cout << "Terima kasih telah menggunakan sistem ini.\n"; break;
             default: cout << "Pilihan tidak valid.\n";
         }
