@@ -1,4 +1,5 @@
 #include "antriankursi.h"
+#include <sstream>
 
 void prosesAntreanPembelian() {
     if (jumlahAntrean == 0) {
@@ -57,7 +58,9 @@ Transaksi t;
     t.kategoriKursi = p.kategoriKursi;
     t.jumlahTiket = p.jumlahTiket;
     t.totalHarga = totalHarga;
-    t.waktuTransaksi = "Transaksi ke-" + to_string(counterTransaksi);
+	ostringstream oss;
+    oss << "Transaksi ke-" << t.idTransaksi;
+    t.waktuTransaksi = oss.str();
     pushRiwayat(t);
 
     cout << "\n[SUCCESS] Transaksi #" << t.idTransaksi << " berhasil diproses!\n";
