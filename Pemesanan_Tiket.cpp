@@ -1,6 +1,5 @@
 #include "Pemesanan.h"
 
-// Tugas: Faiz - Pemesanan Tiket
 void pesanTiket() {
     if (jumlahKonser == 0) {
         cout << "\n[INFO] Belum ada jadwal konser yang bisa dipesan.\n";
