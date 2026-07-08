@@ -51,16 +51,18 @@ void prosesAntreanPembelian() {
         daftarKonser[idx].kursiTerisiReguler += p.jumlahTiket;
     }
 
-Transaksi t;
+    Transaksi t;
     t.idTransaksi = ++counterTransaksi;
     t.namaPemesan = p.nama;
     t.idKonser = p.idKonser;
     t.kategoriKursi = p.kategoriKursi;
     t.jumlahTiket = p.jumlahTiket;
     t.totalHarga = totalHarga;
-	ostringstream oss;
+
+    ostringstream oss;
     oss << "Transaksi ke-" << t.idTransaksi;
     t.waktuTransaksi = oss.str();
+
     pushRiwayat(t);
 
     cout << "\n[SUCCESS] Transaksi #" << t.idTransaksi << " berhasil diproses!\n";
