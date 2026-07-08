@@ -1,73 +1,73 @@
-void tampilJudul() {
-    cout << "======================================" << endl;
-    cout << "      PEMESANAN TIKET KONSER" << endl;
-    cout << "======================================" << endl;
-}
+#include "Pemesanan.h"
 
-// Input Nama
-void inputNama(string &nama) {
-    cout << "Masukkan Nama Pemesan : ";
-    getline(cin, nama);
-}
-
-// Menampilkan Menu
-void tampilMenu() {
-    cout << "\nDaftar Kategori Tiket" << endl;
-    cout << "1. VIP      : Rp1.000.000" << endl;
-    cout << "2. Festival : Rp500.000" << endl;
-    cout << "3. Reguler  : Rp250.000" << endl;
-}
-
-// Memilih Tiket
-void pilihTiket(int &pilihan, int &harga) {
-    cout << "\nPilih Kategori Tiket (1-3): ";
-    cin >> pilihan;
-
-    switch (pilihan) {
-        case 1:
-            harga = 1000000;
-            break;
-        case 2:
-            harga = 500000;
-            break;
-        case 3:
-            harga = 250000;
-            break;
-        default:
-            cout << "Pilihan tidak valid!" << endl;
-            exit(0);
+// Tugas: Faiz - Pemesanan Tiket
+void pesanTiket() {
+    if (jumlahKonser == 0) {
+        cout << "\n[INFO] Belum ada jadwal konser yang bisa dipesan.\n";
+        return;
     }
-}
 
-// Input Jumlah Tiket
-void inputJumlah(int &jumlah) {
-    cout << "Jumlah Tiket : ";
-    cin >> jumlah;
-}
+    lihatDaftarKonser();
 
-// Menghitung Total
-void hitungTotal(int harga, int jumlah, int &total) {
-    total = harga * jumlah;
-}
+    int idKonser;
+    cout << "\n=== Pesan Tiket ===\n";
+    cout << "Masukkan ID Konser yang ingin dipesan: ";
+    cin >> idKonser;
 
-// Cetak Struk
-void cetakStruk(string nama, int pilihan, int harga, int jumlah, int total) {
-    cout << "\n======================================" << endl;
-    cout << "          STRUK PEMESANAN" << endl;
-    cout << "======================================" << endl;
-    cout << "Nama Pemesan : " << nama << endl;
+    int idx = -1;
+    for (int i = 0; i < jumlahKonser; i++) {
+        if (daftarKonser[i].id == idKonser) {
+            idx = i;
+            break;
+        }
+    }
 
-    cout << "Kategori     : ";
-    if (pilihan == 1)
-        cout << "VIP" << endl;
-    else if (pilihan == 2)
-        cout << "Festival" << endl;
-    else
-        cout << "Reguler" << endl;
+    if (idx == -1) {
+        cout << "[ERROR] Konser dengan ID " << idKonser << " tidak ditemukan.\n";
+        return;
+    }
 
-    cout << "Harga Tiket  : Rp" << harga << endl;
-    cout << "Jumlah Tiket : " << jumlah << endl;
-    cout << "Total Bayar  : Rp" << total << endl;
-    cout << "======================================" << endl;
-    cout << "Terima kasih telah memesan tiket konser!" << endl;
+    Pemesan p;
+    p.idKonser = idKonser;
+
+    cout << "Masukkan Nama Pemesan       : ";
+    cin.ignore();
+    getline(cin, p.nama);
+    cout << "Masukkan Nomor Kontak       : ";
+    getline(cin, p.kontak);
+
+    cout << "Pilih Kategori Kursi (1=VIP, 2=Reguler): ";
+    int kategori;
+    cin >> kategori;
+
+    if (kategori == 1) {
+        p.kategoriKursi = "VIP";
+    } else if (kategori == 2) {
+        p.kategoriKursi = "Reguler";
+    } else {
+        cout << "[ERROR] Kategori tidak valid.\n";
+        return;
+    }
+
+    cout << "Masukkan Jumlah Tiket       : ";
+    cin >> p.jumlahTiket;
+
+    if (p.jumlahTiket <= 0) {
+        cout << "[ERROR] Jumlah tiket harus lebih dari 0.\n";
+        return;
+    }
+
+    int sisaKursi = (kategori == 1)
+        ? (daftarKonser[idx].kapasitasVIP - daftarKonser[idx].kursiTerisiVIP)
+        : (daftarKonser[idx].kapasitasReguler - daftarKonser[idx].kursiTerisiReguler);
+
+    if (p.jumlahTiket > sisaKursi) {
+        cout << "[ERROR] Kursi tidak cukup! Sisa kursi " << p.kategoriKursi << ": " << sisaKursi << "\n";
+        return;
+    }
+
+    if (enqueueAntrean(p)) {
+        cout << "[SUCCESS] Pesanan atas nama \"" << p.nama << "\" berhasil masuk antrean pembelian.\n";
+        cout << "Silakan pilih menu 5 (Proses Antrean Pembelian) untuk memproses pesanan ini.\n";
+    }
 }
