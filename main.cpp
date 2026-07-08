@@ -4,41 +4,6 @@
 #include "antriankursi.h"
 using namespace std;
 
-const int MAX_KONSER  = 50;
-const int MAX_ANTREAN = 100;
-const int MAX_RIWAYAT = 100;
-
-struct Konser {
-    int id;
-    string nama;
-    string tanggal;
-    string venue;
-    int kapasitasVIP;
-    int kapasitasReguler;
-    int kursiTerisiVIP;
-    int kursiTerisiReguler;
-    double hargaVIP;
-    double hargaReguler;
-};
-
-struct Pemesan {
-    string nama;
-    string kontak;
-    int idKonser;
-    string kategoriKursi;
-    int jumlahTiket;
-};
-
-struct Transaksi {
-    int idTransaksi;
-    string namaPemesan;
-    int idKonser;
-    string kategoriKursi;
-    int jumlahTiket;
-    double totalHarga;
-    string waktuTransaksi;
-};
-
 Konser daftarKonser[MAX_KONSER];
 int jumlahKonser = 0;
 
@@ -93,13 +58,12 @@ bool popRiwayat(Transaksi &keluar) {
 }
 
 void tambahKonser();                  // Tugas: Rangga
-void lihatDaftarKonser();
 void cariKonser();                    // Tugas: Rangga
+// lihatDaftarKonser() dideklarasikan di Pemesanan.h
+// pesanTiket() dideklarasikan di Pemesanan.h (implementasi di Pemesanan_Tiket.cpp)
 
-void pesanTiket();                    // Tugas: Faiz
-
-void prosesAntreanPembelian();        // Tugas: Rian
-void cekKapasitasKursi();             // Tugas: Rian
+// prosesAntreanPembelian() & cekKapasitasKursi() dideklarasikan di antriankursi.h
+// (implementasi di antreankursi.cpp)
 
 void lihatRiwayatTransaksi();         // Tugas: Pipit
 void urutkanDataKonser();             // Tugas: Pipit
@@ -201,87 +165,6 @@ void cariKonser() {
     if (!ditemukan) {
         cout << "[INFO] Konser dengan nama \"" << keyword << "\" tidak ditemukan.\n";
     }
-}
-
-// ================= FAIZ & RIAN: masih menyusul (langkah 2 & 3) =================
-
-void pesanTiket() {
-    if (jumlahKonser == 0) {
-        cout << "\n[INFO] Belum ada jadwal konser yang bisa dipesan.\n";
-        return;
-    }
-
-    lihatDaftarKonser();
-
-    int idKonser;
-    cout << "\n=== Pesan Tiket ===\n";
-    cout << "Masukkan ID Konser yang ingin dipesan: ";
-    cin >> idKonser;
-
-    int idx = -1;
-    for (int i = 0; i < jumlahKonser; i++) {
-        if (daftarKonser[i].id == idKonser) {
-            idx = i;
-            break;
-        }
-    }
-
-    if (idx == -1) {
-        cout << "[ERROR] Konser dengan ID " << idKonser << " tidak ditemukan.\n";
-        return;
-    }
-
-    Pemesan p;
-    p.idKonser = idKonser;
-
-    cout << "Masukkan Nama Pemesan       : ";
-    cin.ignore();
-    getline(cin, p.nama);
-    cout << "Masukkan Nomor Kontak       : ";
-    getline(cin, p.kontak);
-
-    cout << "Pilih Kategori Kursi (1=VIP, 2=Reguler): ";
-    int kategori;
-    cin >> kategori;
-
-    if (kategori == 1) {
-        p.kategoriKursi = "VIP";
-    } else if (kategori == 2) {
-        p.kategoriKursi = "Reguler";
-    } else {
-        cout << "[ERROR] Kategori tidak valid.\n";
-        return;
-    }
-
-    cout << "Masukkan Jumlah Tiket       : ";
-    cin >> p.jumlahTiket;
-
-    if (p.jumlahTiket <= 0) {
-        cout << "[ERROR] Jumlah tiket harus lebih dari 0.\n";
-        return;
-    }
-
-    int sisaKursi = (kategori == 1)
-        ? (daftarKonser[idx].kapasitasVIP - daftarKonser[idx].kursiTerisiVIP)
-        : (daftarKonser[idx].kapasitasReguler - daftarKonser[idx].kursiTerisiReguler);
-
-    if (p.jumlahTiket > sisaKursi) {
-        cout << "[ERROR] Kursi tidak cukup! Sisa kursi " << p.kategoriKursi << ": " << sisaKursi << "\n";
-        return;
-    }
-
-    if (enqueueAntrean(p)) {
-        cout << "[SUCCESS] Pesanan atas nama \"" << p.nama << "\" berhasil masuk antrean pembelian.\n";
-        cout << "Silakan pilih menu 5 (Proses Antrean Pembelian) untuk memproses pesanan ini.\n";
-    }
-}
-
-void prosesAntreanPembelian() {
-    cout << "[TODO - Rian]\n";
-}
-
-void cekKapasitasKursi() {
-    cout << "[TODO - Rian]\n";
 }
 
 // ================= PIPIT: Riwayat Transaksi & Sorting =================
